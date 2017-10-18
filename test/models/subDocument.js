@@ -28,7 +28,6 @@ describe('Test sub document', () => {
         await user.save();
         const user2 = await User.findById(user._id);
         assert.equal(user2.name, 'Pho');
-        console.log(user2);
     });
 
     it('Can add new car for user', async () => {
@@ -56,7 +55,12 @@ describe('Test sub document', () => {
         
     });
 
-    xit('Can add remove car by id', async () => {
-        
+    it('Can remove car by id', async () => {
+        const user = await User.findById(userId);
+        user.cars.remove(toyotaId);
+        await user.save();
+        const user2 = await User.findById(userId);
+        assert.equal(user2.cars[0].branch, 'Merc');
+        assert.equal(user2.cars.length, 1);
     });
 });
