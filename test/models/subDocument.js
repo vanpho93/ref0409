@@ -3,6 +3,7 @@ const User = require('../../src/user');
 
 describe('Test sub document', () => {
     let userId;
+    let toyotaId;
     beforeEach('Create a user for test', async () => {
         const user = new User({
             name: 'Teo',
@@ -12,6 +13,7 @@ describe('Test sub document', () => {
             ]
         });
         userId = user._id;
+        toyotaId = user.cars[0]._id;
         await user.save();
     });
 
@@ -33,6 +35,18 @@ describe('Test sub document', () => {
         const user = await User.findById(userId);
         user.cars.push({ branch: 'Madza', color: 'red' });
         await user.save();
+        const user2 = await User.findById(userId);
+        assert.equal(user2.cars.length, 3);
+        assert.equal(user2.cars[2].branch, 'Madza');
+    });
+
+    it('Can add new by $push', async () => {
+        const update = { 
+            $push: { 
+                cars: { branch: 'Madza', color: 'red' } 
+            }
+        };
+        await User.findByIdAndUpdate(userId, update);
         const user2 = await User.findById(userId);
         assert.equal(user2.cars.length, 3);
         assert.equal(user2.cars[2].branch, 'Madza');
