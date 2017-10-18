@@ -1,0 +1,29 @@
+{
+  "name": "testing0409",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon --exec 'mocha --recursive'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vanpho93/testing0409.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vanpho93/testing0409/issues"
+  },
+  "homepage": "https://github.com/vanpho93/testing0409#readme",
+  "devDependencies": {
+    "mocha": "^4.0.1",
+    "supertest": "^3.0.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongoose": "^4.12.1"
+  }
+}
