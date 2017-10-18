@@ -63,4 +63,13 @@ describe('Test sub document', () => {
         assert.equal(user2.cars[0].branch, 'Merc');
         assert.equal(user2.cars.length, 1);
     });
+
+    it('Can remove car by id with $pull', async () => {
+        const user = await User.findByIdAndUpdate(userId, {
+            $pull: { cars: { _id: toyotaId } }
+        });
+        const user2 = await User.findById(userId);
+        assert.equal(user2.cars[0].branch, 'Merc');
+        assert.equal(user2.cars.length, 1);
+    });
 });
