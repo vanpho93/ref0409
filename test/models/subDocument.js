@@ -2,6 +2,19 @@ const assert = require('assert');
 const User = require('../../src/user');
 
 describe('Test sub document', () => {
+    let userId;
+    beforeEach('Create a user for test', async () => {
+        const user = new User({
+            name: 'Teo',
+            cars: [
+                { branch: 'Toyota', color: 'black' },
+                { branch: 'Merc', color: 'white' }
+            ]
+        });
+        userId = user._id;
+        await user.save();
+    });
+
     it('Can create user with cars', async () => {
         const user = new User({
             name: 'Pho',
@@ -16,8 +29,13 @@ describe('Test sub document', () => {
         console.log(user2);
     });
 
-    xit('Can add new car for user', async () => {
-        
+    it('Can add new car for user', async () => {
+        const user = await User.findById(userId);
+        user.cars.push({ branch: 'Madza', color: 'red' });
+        await user.save();
+        const user2 = await User.findById(userId);
+        assert.equal(user2.cars.length, 3);
+        assert.equal(user2.cars[2].branch, 'Madza');
     });
 
     xit('Can add update a car', async () => {
