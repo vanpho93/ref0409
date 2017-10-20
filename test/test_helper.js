@@ -1,6 +1,6 @@
 require('../src/db');
 const User = require('../src/user');
-const Post = require('../src/Post');
+const Post = require('../src/post');
 
 beforeEach('Remove all data', async() => {
     await User.remove({});
