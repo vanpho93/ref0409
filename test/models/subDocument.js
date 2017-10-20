@@ -54,10 +54,10 @@ describe('Test sub document', () => {
     it('Can add update a car', async () => {
         const user = await User.findById(userId);
         const toyotaCar = user.cars.find(car => car._id.toString() === toyotaId.toString());
-        toyotaCar.update({ color: 'Blue' });
+        toyotaCar.color = 'Blue';
         await user.save();
         const user2 = await User.findById(userId);
-        console.log(user2);
+        assert.equal(user2.cars[0].color, 'Blue');        
     });
 
     it('Can remove car by id', async () => {
