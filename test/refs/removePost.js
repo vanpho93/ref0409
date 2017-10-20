@@ -2,7 +2,7 @@ const assert = require('assert');
 const Post = require('../../src/post');
 const User = require('../../src/user');
 
-describe.only('Remove post for existed user', () => {
+describe.only('Remove and update post for existed user', () => {
     let idPost1;
     let idUser;
     beforeEach('Create a user with 2 posts', async () => {
@@ -23,5 +23,11 @@ describe.only('Remove post for existed user', () => {
         await Post.findByIdAndRemove(idPost1);
         const user = await User.findById(idUser).populate('posts');
         assert.equal(user.posts[0].content, 'MEAN 2');
+    });
+
+    it('Update post by id', async () => {
+        await Post.findByIdAndUpdate(idPost1, { content: 'Node' });
+        const user = await User.findById(idUser).populate('posts');
+        assert.equal(user.posts[0].content, 'Node');
     });
 });
